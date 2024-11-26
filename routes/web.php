@@ -19,8 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-
-Route::get('client' , [ClientController::class ,  'index'])->name('client.index');
+Route::get('client', [ClientController::class ,  'index'])->name('client.index');
 
 Route::get('api-tokens', [TokenController::class, 'index'])->name('tokens.index');
+
+require __DIR__.'/auth.php';

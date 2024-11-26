@@ -78,7 +78,7 @@
                     <table class="text-gray-600">
                         <thead class="border-b border-gray-300">
                             <tr class="text-left">
-                                <th class="py-2 w-full">Nombre</th>
+                                <th class="py-2 w-full">Detalles</th>
                                 <th class="py-2">Acción</th>
                             </tr>
                         </thead>
@@ -86,14 +86,9 @@
                         <tbody class="divide-y divide-gray-300">
                             <tr v-for="token in tokens">
                                 <td class="py-2">
-                                    @{{ token.name }}
+                                    <p><b>@{{ token.name }}</b> - @{{ token.scopes }}</p>
                                 </td>
                                 <td class="flex divide-x divide-gray-300 py-2">
-
-                                    <a class="pr-2 hover:text-green-600 font-semibold cursor-pointer"
-                                    v-on:click="show(token)">
-                                        Ver
-                                    </a>
                                     <a class="pl-2 hover:text-red-600 font-semibold cursor-pointer"
                                     v-on:click="revoke(token)">
                                         Eliminar
@@ -118,17 +113,16 @@
             <x-slot name="content">
                 <div class="space-y-6 overflow-auto">
 
-                    <p>
+                        <p class="bg-blue-200 border-solid border-2 border-blue-500 rounded p-3">Copia y guarda este access token en un lugar seguro. ¡No podrás volver a verlo!</p>
                         <span class="font-semibold">Access Token: </span>
-                        <span v-text="showToken.id"></span>
-                    </p>
+                        <span v-text="showToken.token"></span>
                 
                 </div>
             </x-slot>
     
             <x-slot name="footer">
                 <button v-on:click="showToken.open = false"
-                type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto disabled:opacity-50 disabled:hover:bg-red-600">Cancelar</button>
+                type="button" class="inline-flex w-full justify-center rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 sm:ml-3 sm:w-auto disabled:opacity-50">Listo</button>
             </x-slot>
         </x-dialog-modal>
 
@@ -153,7 +147,7 @@
                         tokens: [],
                         showToken:{
                             open: false,
-                            id: '',
+                            token: null,
                         },
                         scopes: [],
                     }
@@ -171,6 +165,9 @@
                                 this.form.name = null;
                                 this.form.errors = [];
                                 this.form.scopes = [];
+
+                                this.showToken.token = response.data.accessToken;
+                                this.showToken.open = true;
 
                                 this.getTokens();
                             })
