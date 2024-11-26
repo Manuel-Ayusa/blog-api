@@ -9,16 +9,17 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
+use App\Policies\PostPolicy;
+
 class PostController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
         return [
-            new Middleware(middleware: 'auth:api', except: ['index', 'show']),
-            new Middleware(middleware: 'scopes:read-post', only: ['index', 'show']),
-            new Middleware(middleware: 'scopes:create-post', only: ['store']),
-            new Middleware(middleware: 'scopes:update-post', only: ['update']),
-            new Middleware(middleware: 'scopes:delete-post', only: ['destroy']),
+            new Middleware('auth:api', except: ['index', 'show']),
+            new Middleware(['scopes:create-post', 'role:admin'], only: ['store']),
+            new Middleware(['scopes:update-post', 'role:admin'], only: ['update']),
+            new Middleware(['scopes:delete-post', 'role:admin'], only: ['destroy']),
         ];
     }
 
@@ -71,7 +72,9 @@ class PostController extends Controller implements HasMiddleware
      * Update the specified resource in storage.
      */
     public function update(Request $request, Post $post)
-    {
+    {   
+        $this->authorize('author', $post);
+
         $request->validate([
             'name' => 'required|max:250',
             'slug' => 'required|max:250|unique:posts,slug,' . $post->id,
@@ -91,6 +94,8 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
+        $this->authorize('author', $post);
+
         $post->delete();
 
         return PostResource::make($post);

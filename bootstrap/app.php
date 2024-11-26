@@ -15,8 +15,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias(['scopes' => CheckScopes::class]);
-        $middleware->alias(['scope' => CheckForAnyScope::class]);
+        $middleware->alias([
+            'scopes' => CheckScopes::class, 
+            'scope' => CheckForAnyScope::class,
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
