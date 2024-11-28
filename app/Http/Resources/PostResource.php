@@ -24,9 +24,11 @@ class PostResource extends JsonResource
             'stract' => $this->stract,
             'body' => $this->body,
             'status' => $this->status == 1 ? 'BORRADOR' : 'PUBLICADO',
+            'category_id' => $this->category_id,
             'user' => UserResource::make($this->whenLoaded('user')),
             'category' => CategoryResource::make($this->whenLoaded('category')),
-            'tags' => CategoryResource::collection($this->whenLoaded('tags')),
+            'tags' => TagResource::collection($this->whenLoaded('tags')),
+            'image' => ImageResource::make($this->whenLoaded('images'))
         ];
     }
 }

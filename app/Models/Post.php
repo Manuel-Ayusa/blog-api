@@ -11,8 +11,8 @@ class Post extends Model
 {
     use HasFactory, ApiTrait;
 
-    protected $allowIncluded = ['user', 'category', 'tags'];
-    protected $allowFilter = ['id', 'name', 'slug', 'status'];
+    protected $allowIncluded = ['user', 'category', 'tags', 'images'];
+    protected $allowFilter = ['id', 'name', 'slug', 'status', 'category_id', 'status'];
     protected $allowSort = ['id', 'name', 'slug'];
 
     const BORRADOR = 1;
