@@ -11,7 +11,7 @@ class Category extends Model
 {
     use HasFactory, ApiTrait;
 
-    protected $allowIncluded = ['posts', 'posts.user'];
+    protected $allowIncluded = ['posts', 'posts.user', 'posts.images', 'posts.tags'];
     protected $allowFilter = ['id', 'name', 'slug'];
     protected $allowSort = ['id', 'name', 'slug'];
 
