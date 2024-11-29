@@ -61,7 +61,7 @@ class PostController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(int $id)
     {
         $post = Post::include()->findOrFail($id);
 
