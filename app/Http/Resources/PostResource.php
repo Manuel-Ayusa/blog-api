@@ -28,7 +28,7 @@ class PostResource extends JsonResource
             'user' => UserResource::make($this->whenLoaded('user')),
             'category' => CategoryResource::make($this->whenLoaded('category')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
-            'image' => ImageResource::make($this->whenLoaded('images'))
+            'images' => ImageResource::make($this->whenLoaded('images'))
         ];
     }
 }
