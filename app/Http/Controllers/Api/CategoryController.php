@@ -5,11 +5,23 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
 use App\Http\Resources\CategoryResource;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:api', except: ['index', 'show']),
+            new Middleware(['scopes:create-category', 'role:admin'], only: ['store']),
+            new Middleware(['scopes:update-category', 'role:admin'], only: ['update']),
+            new Middleware(['scopes:delete-category', 'role:admin'], only: ['destroy']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */

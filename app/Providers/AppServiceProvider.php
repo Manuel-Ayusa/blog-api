@@ -26,7 +26,11 @@ class AppServiceProvider extends ServiceProvider
             'create-post' => 'Crear un nuevo post', 
             'read-post' => 'Leer un post', 
             'update-post' => 'Actualizar un post', 
-            'delete-post' => 'Eliminar un post'
+            'delete-post' => 'Eliminar un post',
+            'create-category' => 'Crear uan nuevo categoria', 
+            'read-category' => 'Leer una categoria', 
+            'update-category' => 'Actualizar una categoria', 
+            'delete-category' => 'Eliminar una categoria'
         ]);
 
         Passport::setDefaultScope([

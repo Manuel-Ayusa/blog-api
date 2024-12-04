@@ -24,7 +24,10 @@ class RoleSeeder extends Seeder
         $create_post = Permission::create(['name' => 'create posts']);
         $edit_post = Permission::create(['name' => 'edit posts']);
         $delete_post = Permission::create(['name' => 'delete posts']);  
+        $create_category = Permission::create(['name' => 'create categories']);
+        $edit_category = Permission::create(['name' => 'edit categories']);
+        $delete_category = Permission::create(['name' => 'delete categories']);  
 
-        $admin->syncPermissions([$create_post, $edit_post, $delete_post]);
+        $admin->syncPermissions([$create_post, $edit_post, $delete_post, $create_category, $edit_category, $delete_category]);
     }
 }
