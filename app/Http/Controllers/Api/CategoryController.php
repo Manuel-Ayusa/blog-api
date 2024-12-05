@@ -42,12 +42,11 @@ class CategoryController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:250|unique:categories',
-        ]);
+            'name' => 'required|max:250',
+            'slug' =>'required|unique:categories'
+         ]);
 
-        $slug = Str::slug($request->name, '-');
-        
-        $category = Category::create($request->all() + ['slug' => $slug]);
+        $category = Category::create($request->all());
 
         return CategoryResource::make($category);
     }
