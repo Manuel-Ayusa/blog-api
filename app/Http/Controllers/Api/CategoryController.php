@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Str;
 
 use App\Http\Resources\CategoryResource;
 
@@ -41,11 +42,12 @@ class CategoryController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:250',
-            'slug' => 'required|max:250|unique:categories',
+            'name' => 'required|max:250|unique:categories',
         ]);
 
-        $category = Category::create($request->all());
+        $slug = Str::slug($request->name, '-');
+        
+        $category = Category::create($request->all() + ['slug' => $slug]);
 
         return CategoryResource::make($category);
     }
