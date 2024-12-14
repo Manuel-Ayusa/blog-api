@@ -15,6 +15,13 @@ class Tag extends Model
     protected $allowFilter = ['id', 'name'];
     protected $allowSort = ['id', 'name'];
 
+    //habilitar asignacion masiva
+    protected $fillable = [
+        'name',
+        'slug',
+        'color'
+    ];
+
     //relacion muchos a muchos
     public function posts()
     {

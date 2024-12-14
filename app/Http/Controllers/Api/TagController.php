@@ -23,19 +23,18 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:250',
+            'slug' =>'required|unique:tags'
+         ]);
+
+        $tag = Tag::create($request->all());
+
+        return TagResource::make($tag);
     }
 
     /**
@@ -49,19 +48,19 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(tag $tag)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, tag $tag)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:250',
+            'slug' => 'required|max:250|unique:tags,slug,' . $tag->id, //esto ultimo para que compare todos los slug menos al del registro que queremos actualizar
+            'color' => 'required'
+        ]);
+
+        $tag->update($request->all());
+
+        return TagResource::make($tag);
     }
 
     /**
@@ -69,6 +68,8 @@ class TagController extends Controller
      */
     public function destroy(tag $tag)
     {
-        //
+        $tag->delete();
+
+        return TagResource::make($tag);
     }
 }
