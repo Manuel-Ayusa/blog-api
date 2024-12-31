@@ -11,8 +11,8 @@ class Post extends Model
 {
     use HasFactory, ApiTrait;
 
-    protected $allowIncluded = ['user', 'category', 'tags', 'images'];
-    protected $allowFilter = ['id', 'name', 'slug', 'status', 'category_id', 'status'];
+    protected $allowIncluded = ['user', 'category', 'tags', 'image'];
+    protected $allowFilter = ['id', 'name', 'slug', 'status', 'category_id', 'status', 'user_id'];
     protected $allowSort = ['id', 'name', 'slug'];
 
     const BORRADOR = 1;
@@ -47,7 +47,7 @@ class Post extends Model
     }
 
     //relacion uno a muchos polimorfica
-    public function images()
+    public function image()
     {
         return $this->morphMany(Image::class, 'imageable');
     }

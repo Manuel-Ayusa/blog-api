@@ -14,7 +14,7 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::factory(100)->create()->each(function(Post $post){
+        Post::factory(150)->create()->each(function(Post $post){
             Image::factory(1)->create([
                 'imageable_id' => $post->id,
                 'imageable_type' => Post::class
@@ -24,6 +24,6 @@ class PostSeeder extends Seeder
                 rand(1, 4),
                 rand(5, 8),
             ]); 
-        });//para crear 4 factories de 'image' por cada post y relacionar cada post con 4 etiquetas
+        });//para crear 1 factories de 'image' por cada post y relacionar cada post con 4 etiquetas
     }
 }

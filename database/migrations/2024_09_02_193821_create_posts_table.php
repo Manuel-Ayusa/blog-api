@@ -18,8 +18,8 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('slug')->unique();
-            $table->text('stract');
-            $table->longText('body');
+            $table->text('stract')->nullable();
+            $table->longText('body')->nullable();
             $table->enum('status', [Post::BORRADOR, Post::PUBLICADO])->default(Post::BORRADOR); //booleano
 
             // $table->unsignedBigInteger('category_id');

@@ -41,19 +41,35 @@ class PostController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|max:250',
-            'slug' => 'required|max:250|unique:posts',
-            'stract' => 'required',
-            'body' => 'required',
-            'category_id' => 'required|exists:categories,id'
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:posts',
+            'category_id' => 'required',
+            'status' => 'required|in:1,2'
         ]);
-
-        $user = auth()->user()->id;
         
-        $data['user_id'] = $user;
+        if ($request->status == 2) {
+            $request->validate([
+                'tags' => 'required',
+                'stract' => 'required',
+                'body' => 'required',
+                'image' => 'required|image'
+            ]);
+        }
 
-        $post = Post::create($data);
+        $post = Post::create($request->all());
+
+        if ($request->tags) {
+            $post->tags()->attach($request->tags);
+        }
+
+        if ($request->image) {
+            $image_url = $request->image->storeAs('posts/', $request->user_id . '_' . $request->name . '.' . $request->image->extension());
+
+            $image_url = 'posts/' . substr($image_url, 7);
+
+            $post->images()->create(['url' => $image_url]);
+        }
 
         return PostResource::make($post);
     }
