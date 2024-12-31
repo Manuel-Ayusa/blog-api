@@ -36,7 +36,11 @@ trait ApiTrait {
 
         foreach ($filters as $filter => $value) {
             if ($allowFilter->contains($filter)) {
-                $query->where($filter, 'LIKE' , '%' . $value . '%');
+                if ($filter == 'id' || $filter == 'user_id') {
+                    $query->where($filter, $value);
+                } else {
+                    $query->where($filter, 'LIKE' , '%' . $value . '%');    
+                }
             }
         }
     }

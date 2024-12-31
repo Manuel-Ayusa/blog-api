@@ -11,6 +11,10 @@ class Image extends Model
 {
     use HasFactory, ApiTrait;
 
+    protected $fillable = [
+        'url'
+    ];
+
     public function imageable()
     {
         return $this->morphTo();

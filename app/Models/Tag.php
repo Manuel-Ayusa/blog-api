@@ -11,7 +11,7 @@ class Tag extends Model
 {
     use HasFactory, ApiTrait;
 
-    protected $allowIncluded = ['posts', 'posts.user', 'posts.images', 'posts.tags'];
+    protected $allowIncluded = ['posts', 'posts.user', 'posts.image', 'posts.tags'];
     protected $allowFilter = ['id', 'name'];
     protected $allowSort = ['id', 'name'];
 
