@@ -135,7 +135,7 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
-        $this->authorize('author', $post);
+        //$this->authorize('author', $post);
 
         $post->delete();
 
