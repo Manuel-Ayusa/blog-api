@@ -8,6 +8,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Storage;
 
 use App\Policies\PostPolicy;
 
@@ -16,7 +17,8 @@ class PostController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('auth:api', except: ['index', 'show']),
+            new Middleware('auth:api'),
+            new Middleware(['scopes:read-post'], only: ['index', 'show']),
             new Middleware(['scopes:create-post', 'role:admin'], only: ['store']),
             new Middleware(['scopes:update-post', 'role:admin'], only: ['update']),
             new Middleware(['scopes:delete-post', 'role:admin'], only: ['destroy']),
@@ -43,9 +45,11 @@ class PostController extends Controller implements HasMiddleware
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:posts',
-            'category_id' => 'required',
-            'status' => 'required|in:1,2'
+            'slug' => 'required|unique:posts,slug',
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'required|in:1,2',
+            'user_id' => 'required|exists:users,id',
+            'image' => 'image'
         ]);
         
         if ($request->status == 2) {
@@ -53,7 +57,6 @@ class PostController extends Controller implements HasMiddleware
                 'tags' => 'required',
                 'stract' => 'required',
                 'body' => 'required',
-                'image' => 'required|image'
             ]);
         }
 
@@ -64,11 +67,11 @@ class PostController extends Controller implements HasMiddleware
         }
 
         if ($request->image) {
-            $image_url = $request->image->storeAs('posts/', $request->user_id . '_' . $request->name . '.' . $request->image->extension());
+            $image_url = $request->image->storeAs('posts/', $request->user_id . '_' . $request->slug . '.' . $request->image->extension());
 
             $image_url = 'posts/' . substr($image_url, 7);
 
-            $post->images()->create(['url' => $image_url]);
+            $post->image()->create(['url' => $image_url]);
         }
 
         return PostResource::make($post);
@@ -89,16 +92,38 @@ class PostController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Post $post)
     {   
-        $this->authorize('author', $post);
-
+        //$this->authorize('author', $post);
+        
         $request->validate([
-            'name' => 'required|max:250',
-            'slug' => 'required|max:250|unique:posts,slug,' . $post->id,
-            'stract' => 'required',
-            'body' => 'required',
-            'category_id' => 'required|exist:categories,id',
-            'user_id' => 'required|exist:user,id'
+            'name' => 'required',
+            'slug' => 'required|unique:posts,slug,' . $post->id,
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'required|in:1,2',
+            'user_id' => 'required|exists:users,id',
+            'image' => 'image'
         ]);
+        
+        if ($request->status == 2) {
+            $request->validate([
+                'tags' => 'required',
+                'stract' => 'required',
+                'body' => 'required',
+            ]);
+        }
+
+        $post->tags()->detach();
+        $post->tags()->attach($request->tags);
+
+        if ($request->image) {
+            if (Storage::exists( $post->image[0]->url)) {
+                Storage::delete($post->image[0]->url);
+            }
+            $image_url = $request->image->storeAs('posts/', $request->user_id . '_' . $request->slug . '.' . $request->image->extension());
+
+            $image_url = 'posts/' . substr($image_url, 7);
+
+            $post->image()->update(['url' => $image_url]);
+        } 
 
         $post->update($request->all());
 
