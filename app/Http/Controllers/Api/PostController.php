@@ -115,14 +115,23 @@ class PostController extends Controller implements HasMiddleware
         $post->tags()->attach($request->tags);
 
         if ($request->image) {
-            if (Storage::exists( $post->image[0]->url)) {
-                Storage::delete($post->image[0]->url);
+
+            if (!empty($post->image[0])) {
+                if (Storage::exists( $post->image[0]->url)) {
+                    Storage::delete($post->image[0]->url);
+                }
             }
+            
             $image_url = $request->image->storeAs('posts/', $request->user_id . '_' . $request->slug . '.' . $request->image->extension());
 
             $image_url = 'posts/' . substr($image_url, 7);
 
-            $post->image()->update(['url' => $image_url]);
+            if (empty($post->image[0])) {
+                $post->image()->create(['url' => $image_url]);
+            } else {
+                $post->image()->update(['url' => $image_url]);    
+            }
+            
         } 
 
         $post->update($request->all());
@@ -137,6 +146,12 @@ class PostController extends Controller implements HasMiddleware
     {
         //$this->authorize('author', $post);
 
+        if (!empty($post->image[0])) {
+            if (Storage::exists( $post->image[0]->url)) {
+                Storage::delete($post->image[0]->url);
+            }
+        }
+    
         $post->delete();
 
         return PostResource::make($post);
