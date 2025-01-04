@@ -145,12 +145,6 @@ class PostController extends Controller implements HasMiddleware
     public function destroy(Post $post)
     {
         //$this->authorize('author', $post);
-
-        if (!empty($post->image[0])) {
-            if (Storage::exists( $post->image[0]->url)) {
-                Storage::delete($post->image[0]->url);
-            }
-        }
     
         $post->delete();
 
