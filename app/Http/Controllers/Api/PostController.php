@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Storage;
-
-use App\Policies\PostPolicy;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PostController extends Controller implements HasMiddleware
 {
+    use AuthorizesRequests;
+    
     public static function middleware(): array
     {
         return [
@@ -92,7 +93,7 @@ class PostController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Post $post)
     {   
-        //$this->authorize('author', $post);
+        $this->authorize('author', $post);
         
         $request->validate([
             'name' => 'required',
@@ -144,8 +145,8 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
-        //$this->authorize('author', $post);
-    
+        $this->authorize('author', $post);
+
         $post->delete();
 
         return PostResource::make($post);

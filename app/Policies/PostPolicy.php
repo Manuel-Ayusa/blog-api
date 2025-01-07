@@ -10,8 +10,8 @@ class PostPolicy
 {
     public function author(User $user, Post $post): bool
     {
-        if ($post->user->id == $user->id) {
-            return true;    
+        if ($post->user_id == $user->id) {
+            return true;
         } else {
             return false;
         }
