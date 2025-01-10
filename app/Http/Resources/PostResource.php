@@ -25,6 +25,7 @@ class PostResource extends JsonResource
             'body' => $this->body,
             'status' => $this->status == 1 ? 'BORRADOR' : 'PUBLICADO',
             'category_id' => $this->category_id,
+            'user_id' => $this->user_id,
             'user' => UserResource::make($this->whenLoaded('user')),
             'category' => CategoryResource::make($this->whenLoaded('category')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
