@@ -19,4 +19,4 @@ Route::apiResource('posts', PostController::class)->names('api.v1.posts'); // En
 
 Route::apiResource('tags', TagController::class)->names('api.v1.tags'); // Endpoints tags
 
-Route::resource('users', UserController::class)->only(['update'])->names('api.v1.users');
+Route::resource('users', UserController::class)->only(['update'])->names('api.v1.users'); // Endpoints users
