@@ -16,8 +16,12 @@ class ImageFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = \Faker\Factory::create();
+        $faker->addProvider(new \Mmo\Faker\PicsumProvider($faker));
+        $faker->addProvider(new \Mmo\Faker\LoremSpaceProvider($faker));
+
         return [
-            'url' => 'posts/' . $this->faker->image('public/storage/posts', 640, 480, null, false) //false:'image1.png' ; true:'public/storage/posts/image1.png'  
+            'url' => 'posts/' . $faker->picsum('public/storage/posts', 640, 480, null, false) //false:'image1.png' ; true:'public/storage/posts/image1.png'  
         ];
     }
 }
