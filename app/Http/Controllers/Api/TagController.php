@@ -6,9 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use App\Http\Resources\TagResource;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class TagController extends Controller
+class TagController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:api'),
+            new Middleware(['scopes:read-tag'], only: ['index', 'show']),
+            new Middleware(['scopes:create-tag', \Spatie\Permission\Middleware\PermissionMiddleware::using('create tags', 'api')], only:['store']),
+            new Middleware(['scopes:update-tag', \Spatie\Permission\Middleware\PermissionMiddleware::using('edit tags', 'api')], only:['store']),
+            new Middleware(['scopes:delete-tag', \Spatie\Permission\Middleware\PermissionMiddleware::using('delete tags', 'api')], only:['store']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
