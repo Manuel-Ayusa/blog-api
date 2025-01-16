@@ -18,8 +18,8 @@ class TagController extends Controller implements HasMiddleware
             new Middleware('auth:api'),
             new Middleware(['scopes:read-tag'], only: ['index', 'show']),
             new Middleware(['scopes:create-tag', \Spatie\Permission\Middleware\PermissionMiddleware::using('create tags', 'api')], only:['store']),
-            new Middleware(['scopes:update-tag', \Spatie\Permission\Middleware\PermissionMiddleware::using('edit tags', 'api')], only:['store']),
-            new Middleware(['scopes:delete-tag', \Spatie\Permission\Middleware\PermissionMiddleware::using('delete tags', 'api')], only:['store']),
+            new Middleware(['scopes:update-tag', \Spatie\Permission\Middleware\PermissionMiddleware::using('edit tags', 'api')], only:['update']),
+            new Middleware(['scopes:delete-tag', \Spatie\Permission\Middleware\PermissionMiddleware::using('delete tags', 'api')], only:['destroy']),
         ];
     }
 

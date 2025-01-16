@@ -21,8 +21,8 @@ class PostController extends Controller implements HasMiddleware
             new Middleware('auth:api'),
             new Middleware(['scopes:read-post'], only: ['index', 'show']),
             new Middleware(['scopes:create-post', \Spatie\Permission\Middleware\PermissionMiddleware::using('create posts', 'api')], only:['store']),
-            new Middleware(['scopes:update-post', \Spatie\Permission\Middleware\PermissionMiddleware::using('edit posts', 'api')], only:['store']),
-            new Middleware(['scopes:delete-post', \Spatie\Permission\Middleware\PermissionMiddleware::using('delete posts', 'api')], only:['store']),
+            new Middleware(['scopes:update-post', \Spatie\Permission\Middleware\PermissionMiddleware::using('edit posts', 'api')], only:['update']),
+            new Middleware(['scopes:delete-post', \Spatie\Permission\Middleware\PermissionMiddleware::using('delete posts', 'api')], only:['destroy']),
         ];
     }
 
