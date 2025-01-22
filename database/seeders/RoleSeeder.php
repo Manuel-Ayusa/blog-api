@@ -34,7 +34,11 @@ class RoleSeeder extends Seeder
 
         $update_users = Permission::create(['name' => 'update users']);  
 
-        $admin->syncPermissions([$create_post, $edit_post, $delete_post, $create_category, $edit_category, $delete_category, $create_tag, $edit_tag, $delete_tag, $update_users]);
+        $create_role = Permission::create(['name' => 'create roles']);
+        $edit_role = Permission::create(['name' => 'edit roles']);
+        $delete_role = Permission::create(['name' => 'delete roles']);  
+
+        $admin->syncPermissions([$create_post, $edit_post, $delete_post, $create_category, $edit_category, $delete_category, $create_tag, $edit_tag, $delete_tag, $update_users, $create_role, $edit_role, $delete_role]);
 
         $blogger->syncPermissions([$create_post, $edit_post, $delete_post]);
     }
