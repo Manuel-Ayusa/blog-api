@@ -16,7 +16,8 @@ class CategoryController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('auth:api', except: ['index', 'show']),
+            new Middleware('auth:api'),
+            new Middleware(['scopes:read-category'], only: ['index', 'show']),
             new Middleware(['scopes:create-category', \Spatie\Permission\Middleware\PermissionMiddleware::using('create categories', 'api')], only: ['store']),
             new Middleware(['scopes:update-category', \Spatie\Permission\Middleware\PermissionMiddleware::using('edit categories', 'api')], only: ['update']),
             new Middleware(['scopes:delete-category', \Spatie\Permission\Middleware\PermissionMiddleware::using('delete categories', 'api')], only: ['destroy']),
