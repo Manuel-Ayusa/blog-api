@@ -1,0 +1,233 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Blog",
+        "description": "Listado de los endpoints de API Blog",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://api.codersfree.test"
+        }
+    ],
+    "paths": {
+        "/v1/categories": {
+            "get": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Listar todas las categorias",
+                "operationId": "d534950e818920405745e58047885a95",
+                "parameters": [
+                    {
+                        "name": "included",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Categoria de prueba"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "slug-de-prueba"
+                                                    },
+                                                    "posts": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "number",
+                                                                    "example": "1"
+                                                                },
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "example": "Post de prueba"
+                                                                },
+                                                                "slug": {
+                                                                    "type": "string",
+                                                                    "example": "slug-de-prueba"
+                                                                },
+                                                                "stract": {
+                                                                    "type": "string",
+                                                                    "example": "Extracto de prueba"
+                                                                },
+                                                                "body": {
+                                                                    "type": "string",
+                                                                    "example": "Cuerpo del post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto dolores expedita aut cum delectus! Culpa, consequatur tenetur! Vitae molestias, nisi, itaque explicabo dicta corrupti rem nemo, a deserunt impedit corporis."
+                                                                },
+                                                                "status": {
+                                                                    "type": "string",
+                                                                    "example": "PUBLICADO"
+                                                                },
+                                                                "category_id": {
+                                                                    "type": "number",
+                                                                    "example": "2"
+                                                                },
+                                                                "user_id": {
+                                                                    "type": "number",
+                                                                    "example": "1"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "access_token": []
+                    }
+                ]
+            }
+        },
+        "/v1/posts": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Listar todos los Posts",
+                "operationId": "0599142035606414a3075d42c6cc9441",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Post de prueba"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "slug-de-prueba"
+                                                    },
+                                                    "stract": {
+                                                        "type": "string",
+                                                        "example": "Extracto de prueba"
+                                                    },
+                                                    "body": {
+                                                        "type": "string",
+                                                        "example": "Cuerpo del post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto dolores expedita aut cum delectus! Culpa, consequatur tenetur! Vitae molestias, nisi, itaque explicabo dicta corrupti rem nemo, a deserunt impedit corporis."
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "PUBLICADO"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "number",
+                                                        "example": "2"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "access_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Categorias",
+            "description": "Categorias"
+        },
+        {
+            "name": "Posts",
+            "description": "Posts"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "access_token": {
+                "type": "apiKey",
+                "description": "Ingrese el token en formato(Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

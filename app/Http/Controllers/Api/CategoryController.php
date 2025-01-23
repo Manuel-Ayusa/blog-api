@@ -25,7 +25,108 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Display a listing of the resource.
+     * Listar todas las categorias
+     * @OA\Get (
+     *     path="/v1/categories",
+     *     tags={"Categorias"},
+     *  security={
+     *  {"access_token": {}},
+     *   },
+     *      @OA\Parameter(
+     *      name="included",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="array",
+     *                 property="data",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Categoria de prueba"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="slug",
+     *                         type="string",
+     *                         example="slug-de-prueba"
+     *                     ),
+     *                     @OA\Property(
+     *                         type="array",
+     *                         property="posts",
+     *                         @OA\Items(
+     *                             type="object",
+     *                             @OA\Property(
+     *                                 property="id",
+     *                                 type="number",
+     *                                 example="1"
+     *                             ),
+     *                             @OA\Property(
+     *                                 property="name",
+     *                                 type="string",
+     *                                 example="Post de prueba"
+     *                             ),
+     *                             @OA\Property(
+     *                                 property="slug",
+     *                                 type="string",
+     *                                 example="slug-de-prueba"
+     *                             ),
+     *                             @OA\Property(
+     *                                 property="stract",
+     *                                 type="string",
+     *                                 example="Extracto de prueba"
+     *                             ),
+     *                             @OA\Property(
+     *                                 property="body",
+     *                                 type="string",
+     *                                 example="Cuerpo del post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto dolores expedita aut cum delectus! Culpa, consequatur tenetur! Vitae molestias, nisi, itaque explicabo dicta corrupti rem nemo, a deserunt impedit corporis."
+     *                             ),
+     *                             @OA\Property(
+     *                                 property="status",
+     *                                 type="string",
+     *                                 example="PUBLICADO"
+     *                             ),
+     *                             @OA\Property(
+     *                                 property="category_id",
+     *                                 type="number",
+     *                                 example="2"
+     *                             ),
+     *                             @OA\Property(
+     *                                 property="user_id",
+     *                                 type="number",
+     *                                 example="1"
+     *                             )
+     *                         )
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Unauthenticated."
+     *             )
+     *         )
+     *     ),
+     * )
      */
     public function index()
     {

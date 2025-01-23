@@ -11,6 +11,16 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
+/**
+* @OA\Info(
+*             title="API Blog", 
+*             version="1.0",
+*             description="Listado de los endpoints de API Blog"
+* )
+*
+* @OA\Server(url="http://api.codersfree.test")
+*/
+
 class PostController extends Controller implements HasMiddleware
 {
     use AuthorizesRequests;
@@ -25,9 +35,79 @@ class PostController extends Controller implements HasMiddleware
             new Middleware(['scopes:delete-post', \Spatie\Permission\Middleware\PermissionMiddleware::using('delete posts', 'api')], only:['destroy']),
         ];
     }
-
     /**
-     * Display a listing of the resource.
+     * Listar todos los Posts
+     * @OA\Get (
+     *     path="/v1/posts",
+     *     tags={"Posts"},
+     *  security={
+     *  {"access_token": {}},
+     *   },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="array",
+     *                 property="data",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Post de prueba"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="slug",
+     *                         type="string",
+     *                         example="slug-de-prueba"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="stract",
+     *                         type="string",
+     *                         example="Extracto de prueba"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="body",
+     *                         type="string",
+     *                         example="Cuerpo del post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto dolores expedita aut cum delectus! Culpa, consequatur tenetur! Vitae molestias, nisi, itaque explicabo dicta corrupti rem nemo, a deserunt impedit corporis."
+     *                     ),
+     *                     @OA\Property(
+     *                         property="status",
+     *                         type="string",
+     *                         example="PUBLICADO"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="category_id",
+     *                         type="number",
+     *                         example="2"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="user_id",
+     *                         type="number",
+     *                         example="1"
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Unauthenticated."
+     *             )
+     *         )
+     *     ),
+     * )
      */
     public function index()
     {
