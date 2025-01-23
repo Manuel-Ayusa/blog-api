@@ -14,7 +14,7 @@ class RoleController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('auth:api', except: ['index', 'show']),
+            new Middleware('auth:api'),
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('create roles', 'api'), only: ['store']),
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('edit roles', 'api'), only: ['update']),
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('delete roles', 'api'), only: ['destroy']),
