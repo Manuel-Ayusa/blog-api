@@ -22,9 +22,37 @@
                     {
                         "name": "included",
                         "in": "query",
+                        "description": "Incluir una o muchas relaciones entre tablas. Ejemplo: posts o posts.users,posts.tags,posts.image",
                         "required": false,
                         "schema": {
                             "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[name]",
+                        "in": "query",
+                        "description": "Filtra los resultados según el nombre de la columna dentro de los corchetes []. El valor 'name' puede ser sutituido por el nombre de cualquier columna de la tabla Posts. Ejemplo: filter[name]=nombreDeCategoria",
+                        "required": false,
+                        "schema": {
+                            "type": "mixed types"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Ordena los resultados según el valor del parametro. Ejemplo: 'id' para ordernar por el id de forma ascendente o '-id' para ordernar por el id de forma descendente",
+                        "required": false,
+                        "schema": {
+                            "type": "mixed types"
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Paginar los resultados. Ejemplo: '2' para paginar de 2 en 2",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
                         }
                     }
                 ],
@@ -50,46 +78,6 @@
                                                     "slug": {
                                                         "type": "string",
                                                         "example": "slug-de-prueba"
-                                                    },
-                                                    "posts": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "properties": {
-                                                                "id": {
-                                                                    "type": "number",
-                                                                    "example": "1"
-                                                                },
-                                                                "name": {
-                                                                    "type": "string",
-                                                                    "example": "Post de prueba"
-                                                                },
-                                                                "slug": {
-                                                                    "type": "string",
-                                                                    "example": "slug-de-prueba"
-                                                                },
-                                                                "stract": {
-                                                                    "type": "string",
-                                                                    "example": "Extracto de prueba"
-                                                                },
-                                                                "body": {
-                                                                    "type": "string",
-                                                                    "example": "Cuerpo del post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto dolores expedita aut cum delectus! Culpa, consequatur tenetur! Vitae molestias, nisi, itaque explicabo dicta corrupti rem nemo, a deserunt impedit corporis."
-                                                                },
-                                                                "status": {
-                                                                    "type": "string",
-                                                                    "example": "PUBLICADO"
-                                                                },
-                                                                "category_id": {
-                                                                    "type": "number",
-                                                                    "example": "2"
-                                                                },
-                                                                "user_id": {
-                                                                    "type": "number",
-                                                                    "example": "1"
-                                                                }
-                                                            },
-                                                            "type": "object"
-                                                        }
                                                     }
                                                 },
                                                 "type": "object"
@@ -123,6 +111,115 @@
                         "access_token": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Registrar una categoria",
+                "operationId": "c10ce947a02bab958b808bf10246ae28",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CREATED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Categoria de prueba"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "categoria-de-prueba"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required."
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "create-category"
+                        ]
+                    }
+                ]
             }
         },
         "/v1/posts": {
@@ -132,6 +229,44 @@
                 ],
                 "summary": "Listar todos los Posts",
                 "operationId": "0599142035606414a3075d42c6cc9441",
+                "parameters": [
+                    {
+                        "name": "included",
+                        "in": "query",
+                        "description": "Incluir una o muchas relaciones entre tablas. Ejemplo: user o user,tags,image",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[status]",
+                        "in": "query",
+                        "description": "Filtra los resultados según el nombre de la columna dentro de los corchetes []. El valor 'status' puede ser sutituido por el nombre de cualquier columna de la tabla Posts. Ejemplo: filter[status]=1",
+                        "required": false,
+                        "schema": {
+                            "type": "mixed types"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Ordena los resultados según el valor del parametro. Ejemplo: 'id' para ordernar por el id de forma ascendente o '-id' para ordernar por el id de forma descendente",
+                        "required": false,
+                        "schema": {
+                            "type": "mixed types"
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Paginar los resultados. Ejemplo: '5' para paginar de 5 en 5",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -207,6 +342,408 @@
                         "access_token": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Registrar un Post",
+                "operationId": "51a49d8ad8dfb303eb71c141c8277156",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string"
+                                    },
+                                    "category_id": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "stract": {
+                                        "type": "string"
+                                    },
+                                    "body": {
+                                        "type": "string"
+                                    },
+                                    "tags": {
+                                        "type": "array",
+                                        "items": {}
+                                    },
+                                    "imagen": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CREATED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Categoria de prueba"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "categoria-de-prueba"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required."
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "create-post"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/v1/posts/{id}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Mostrar la información de un Post",
+                "operationId": "77f3222c03a31260d683ac2369fdeb31",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "included",
+                        "in": "query",
+                        "description": "Incluir una o muchas relaciones entre tablas. Ejemplo: user o user,tags,image",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Post de prueba"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "slug-de-prueba"
+                                        },
+                                        "stract": {
+                                            "type": "string",
+                                            "example": "Extracto de prueba"
+                                        },
+                                        "body": {
+                                            "type": "string",
+                                            "example": "Cuerpo del post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto dolores expedita aut cum delectus! Culpa, consequatur tenetur! Vitae molestias, nisi, itaque explicabo dicta corrupti rem nemo, a deserunt impedit corporis."
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "PUBLICADO"
+                                        },
+                                        "category_id": {
+                                            "type": "number",
+                                            "example": "2"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Cliente] #id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "access_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Actualizar la información de un Post",
+                "operationId": "df9cdb989ff3ca12d53b28359e4c9e0f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string"
+                                    },
+                                    "category_id": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "stract": {
+                                        "type": "string"
+                                    },
+                                    "body": {
+                                        "type": "string"
+                                    },
+                                    "tags": {
+                                        "type": "array",
+                                        "items": {}
+                                    },
+                                    "imagen": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Post de prueba"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "slug-de-prueba"
+                                        },
+                                        "stract": {
+                                            "type": "string",
+                                            "example": "Extracto de prueba"
+                                        },
+                                        "body": {
+                                            "type": "string",
+                                            "example": "Cuerpo del post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto dolores expedita aut cum delectus! Culpa, consequatur tenetur! Vitae molestias, nisi, itaque explicabo dicta corrupti rem nemo, a deserunt impedit corporis."
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "PUBLICADO"
+                                        },
+                                        "category_id": {
+                                            "type": "number",
+                                            "example": "2"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE CONTENT",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The apellidos field is required."
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "update-post"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Eliminar la información de un Post",
+                "operationId": "30b9c7e97803d78ba613844233ebd6d4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "NO CONTENT"
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se pudo realizar correctamente la operación"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "delete-post"
+                        ]
+                    }
+                ]
             }
         }
     },
@@ -227,7 +764,52 @@
                 "description": "Ingrese el token en formato(Bearer <token>)",
                 "name": "Authorization",
                 "in": "header"
+            },
+            "passport": {
+                "type": "oauth2",
+                "description": "Laravel passport oauth2 security.",
+                "in": "header",
+                "scheme": "https",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "http://api.codersfree.test/oauth/authorize",
+                        "tokenUrl": "http://api.codersfree.test/oauth/token",
+                        "refreshUrl": "http://api.codersfree.test/token/refresh",
+                        "scopes": {
+                            "create-post": "Crear un nuevo post",
+                            "read-post": "Leer un post",
+                            "update-post": "Actualizar un post",
+                            "delete-post": "Eliminar un post",
+                            "create-category": "Crear una nuevo categoria",
+                            "read-category": "Leer una categoria",
+                            "update-category": "Actualizar una categoria",
+                            "delete-category": "Eliminar una categoria",
+                            "create-tag": "Crear una nuevo etiqueta",
+                            "read-tag": "Leer una etiqueta",
+                            "update-tag": "Actualizar una etiqueta",
+                            "delete-tag": "Eliminar una etiqueta"
+                        }
+                    }
+                }
             }
         }
-    }
+    },
+    "security": [
+        {
+            "passport": [
+                "create-post",
+                "read-post",
+                "update-post",
+                "delete-post",
+                "create-category",
+                "read-category",
+                "update-category",
+                "delete-category",
+                "create-tag",
+                "read-tag",
+                "update-tag",
+                "delete-tag"
+            ]
+        }
+    ]
 }

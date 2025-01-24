@@ -1,21 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-
 return [
     'default' => 'default',
     'documentations' => [
         'default' => [
             'api' => [
                 'title' => 'L5 Swagger UI',
-                \Illuminate\Cookie\Middleware\EncryptCookies::class,
-                \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-                \Illuminate\Session\Middleware\StartSession::class,
-                \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-                VerifyCsrfToken::class,
-                \Illuminate\Routing\Middleware\SubstituteBindings::class,
-                \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
-                'auth',
             ],
 
             'routes' => [
@@ -210,21 +200,34 @@ return [
                 ],
                 */
 
-                // Open API 3.0 support
-                // 'passport' => [ // Unique name of security
-                //     'type' => 'oauth2', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".
-                //     'description' => 'Laravel passport oauth2 security.',
-                //     'in' => 'header',
-                //     'scheme' => 'https',
-                //     'flows' => [
-                //         "password" => [
-                //             "authorizationUrl" => config('app.url') . '/oauth/authorize',
-                //             "tokenUrl" => config('app.url') . '/oauth/token',
-                //             "refreshUrl" => config('app.url') . '/token/refresh',
-                //             "scopes" => []
-                //         ],
-                //     ],
-                // ],
+                //Open API 3.0 support
+                'passport' => [ // Unique name of security
+                    'type' => 'oauth2', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".
+                    'description' => 'Laravel passport oauth2 security.',
+                    'in' => 'header',
+                    'scheme' => 'https',
+                    'flows' => [
+                        "password" => [
+                            "authorizationUrl" => config('app.url') . '/oauth/authorize',
+                            "tokenUrl" => config('app.url') . '/oauth/token',
+                            "refreshUrl" => config('app.url') . '/token/refresh',
+                            "scopes" => [
+                                "create-post" => 'Crear un nuevo post', 
+                                'read-post' => 'Leer un post', 
+                                'update-post' => 'Actualizar un post',
+                                'delete-post' => 'Eliminar un post',
+                                'create-category' => 'Crear una nuevo categoria',
+                                'read-category' => 'Leer una categoria',
+                                'update-category' => 'Actualizar una categoria',
+                                'delete-category' => 'Eliminar una categoria',
+                                'create-tag' => 'Crear una nuevo etiqueta',
+                                'read-tag' => 'Leer una etiqueta',
+                                'update-tag' => 'Actualizar una etiqueta',
+                                'delete-tag' => 'Eliminar una etiqueta'
+                            ]
+                        ],
+                    ],
+                ],
 
                 /*
                 'sanctum' => [ // Unique name of security
@@ -245,9 +248,23 @@ return [
                         'read',
                         'write'
                     ],
-
-                    'passport' => []
                     */
+
+                    'passport' => [
+                        'create-post',
+                        'read-post',
+                        'update-post',
+                        'delete-post',
+                        'create-category',
+                        'read-category',
+                        'update-category',
+                        'delete-category',
+                        'create-tag',
+                        'read-tag',
+                        'update-tag',
+                        'delete-tag'
+                    ]
+                    
                 ],
             ],
         ],

@@ -33,14 +33,42 @@ class CategoryController extends Controller implements HasMiddleware
      *  {"access_token": {}},
      *   },
      *      @OA\Parameter(
-     *      name="included",
-     *      in="query",
-     *      required=false,
-     *      @OA\Schema(
-     *           type="string"
-     *      )
-     *   ),
-     *     @OA\Response(
+     *          name="included",
+     *          in="query",
+     *          description="Incluir una o muchas relaciones entre tablas. Ejemplo: posts o posts.users,posts.tags,posts.image",
+     *          required=false,
+     *          @OA\Schema(
+     *               type="string"
+     *          )
+     *      ),
+     *       @OA\Parameter(
+     *          name="filter[name]",
+     *          in="query",
+     *          description="Filtra los resultados según el nombre de la columna dentro de los corchetes []. El valor 'name' puede ser sutituido por el nombre de cualquier columna de la tabla Posts. Ejemplo: filter[name]=nombreDeCategoria",
+     *          required=false,
+     *          @OA\Schema(
+     *               type="mixed types"
+     *          )
+     *      ),
+     *       @OA\Parameter(
+     *          name="sort",
+     *          in="query",
+     *          description="Ordena los resultados según el valor del parametro. Ejemplo: 'id' para ordernar por el id de forma ascendente o '-id' para ordernar por el id de forma descendente",
+     *          required=false,
+     *          @OA\Schema(
+     *               type="mixed types"
+     *          )
+     *      ),
+     *       @OA\Parameter(
+     *          name="perPage",
+     *          in="query",
+     *          description="Paginar los resultados. Ejemplo: '2' para paginar de 2 en 2",
+     *          required=false,
+     *          @OA\Schema(
+     *               type="number"
+     *          )
+     *      ),
+     *      @OA\Response(
      *         response=200,
      *         description="OK",
      *         @OA\JsonContent(
@@ -64,53 +92,6 @@ class CategoryController extends Controller implements HasMiddleware
      *                         type="string",
      *                         example="slug-de-prueba"
      *                     ),
-     *                     @OA\Property(
-     *                         type="array",
-     *                         property="posts",
-     *                         @OA\Items(
-     *                             type="object",
-     *                             @OA\Property(
-     *                                 property="id",
-     *                                 type="number",
-     *                                 example="1"
-     *                             ),
-     *                             @OA\Property(
-     *                                 property="name",
-     *                                 type="string",
-     *                                 example="Post de prueba"
-     *                             ),
-     *                             @OA\Property(
-     *                                 property="slug",
-     *                                 type="string",
-     *                                 example="slug-de-prueba"
-     *                             ),
-     *                             @OA\Property(
-     *                                 property="stract",
-     *                                 type="string",
-     *                                 example="Extracto de prueba"
-     *                             ),
-     *                             @OA\Property(
-     *                                 property="body",
-     *                                 type="string",
-     *                                 example="Cuerpo del post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto dolores expedita aut cum delectus! Culpa, consequatur tenetur! Vitae molestias, nisi, itaque explicabo dicta corrupti rem nemo, a deserunt impedit corporis."
-     *                             ),
-     *                             @OA\Property(
-     *                                 property="status",
-     *                                 type="string",
-     *                                 example="PUBLICADO"
-     *                             ),
-     *                             @OA\Property(
-     *                                 property="category_id",
-     *                                 type="number",
-     *                                 example="2"
-     *                             ),
-     *                             @OA\Property(
-     *                                 property="user_id",
-     *                                 type="number",
-     *                                 example="1"
-     *                             )
-     *                         )
-     *                     )
      *                 )
      *             )
      *         )
@@ -139,18 +120,84 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registrar una categoria
+     * @OA\Post (
+     *     path="/v1/categories",
+     *     tags={"Categorias"},
+     * security={
+     *  {"passport": {"create-category"}},
+     *   },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 
+     *                      @OA\Property(
+     *                          property="name",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="slug",
+     *                          type="string"
+     *                      )
+     *            ),
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="CREATED",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="number", example=1),
+     *              @OA\Property(property="name", type="string", example="Categoria de prueba"),
+     *              @OA\Property(property="slug", type="string", example="categoria-de-prueba"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation Errors",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="The name field is required."),
+     *              @OA\Property(property="errors", type="string", example="Objeto de errores"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Unauthenticated."
+     *             )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Forbidden."
+     *             )
+     *         )
+     *     )
+     * )
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:250',
-            'slug' =>'required|unique:categories'
-         ]);
-
-        $category = Category::create($request->all());
-
-        return CategoryResource::make($category);
+        if (preg_match('/^[a-z0-9-]+$/', $request->slug)) {
+            $request->validate([
+                'name' => 'required|max:250',
+                'slug' =>'required|unique:categories'
+             ]);
+    
+            $category = Category::create($request->all());
+    
+            return CategoryResource::make($category);
+        } else {
+            return response()->json(['errors' => "Formato de slug no valido.",], 422);
+        }
     }
 
     /**
