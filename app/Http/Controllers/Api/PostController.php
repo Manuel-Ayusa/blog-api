@@ -15,7 +15,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 * @OA\Info(
 *             title="API Blog", 
 *             version="1.0",
-*             description="Listado de los endpoints de API Blog"
+*             description="Listado de Endpoints de API Blog"
 * )
 *
 * @OA\Server(url="http://api.codersfree.test")
@@ -471,12 +471,34 @@ class PostController extends Controller implements HasMiddleware
      *      ),
      *      @OA\Response(
      *          response=422,
-     *          description="UNPROCESSABLE CONTENT",
+     *          description="Validation Errors",
      *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="The apellidos field is required."),
+     *              @OA\Property(property="message", type="string", example="The name field is required."),
      *              @OA\Property(property="errors", type="string", example="Objeto de errores"),
      *          )
-     *      )
+     *      ),
+     *      @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Unauthenticated."
+     *             )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Forbidden."
+     *             )
+     *         )
+     *     )
      * )
      */
     public function update(Request $request, Post $post)

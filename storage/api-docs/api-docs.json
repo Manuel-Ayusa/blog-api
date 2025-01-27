@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "API Blog",
-        "description": "Listado de los endpoints de API Blog",
+        "description": "Listado de Endpoints de API Blog",
         "version": "1.0"
     },
     "servers": [
@@ -16,7 +16,7 @@
                 "tags": [
                     "Categorias"
                 ],
-                "summary": "Listar todas las categorias",
+                "summary": "Listar todas las Categorias",
                 "operationId": "d534950e818920405745e58047885a95",
                 "parameters": [
                     {
@@ -116,7 +116,7 @@
                 "tags": [
                     "Categorias"
                 ],
-                "summary": "Registrar una categoria",
+                "summary": "Registrar una Categoria",
                 "operationId": "c10ce947a02bab958b808bf10246ae28",
                 "requestBody": {
                     "content": {
@@ -217,6 +217,253 @@
                     {
                         "passport": [
                             "create-category"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/v1/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Mostrar la información de una Categoria",
+                "operationId": "9f7ea7adec894d92aa13015eb6df1673",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "included",
+                        "in": "query",
+                        "description": "Incluir una o muchas relaciones entre tablas. Ejemplo: posts o posts.users,posts.tags,posts.image",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Categoria de prueba"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "slug-de-prueba"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Cliente] #id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "access_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Actualizar una Categoria",
+                "operationId": "af63b6cde4b403ad67c81c6bad0fa1ca",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Categoria de prueba"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "categoria-de-prueba"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required."
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "update-category"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Eliminar la información de una Categoria",
+                "operationId": "76d9e45902b88a0c1c1afefd8640c10c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "NO CONTENT"
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se pudo realizar correctamente la operación"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "delete-category"
                         ]
                     }
                 ]
@@ -672,18 +919,50 @@
                         }
                     },
                     "422": {
-                        "description": "UNPROCESSABLE CONTENT",
+                        "description": "Validation Errors",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "The apellidos field is required."
+                                            "example": "The name field is required."
                                         },
                                         "errors": {
                                             "type": "string",
                                             "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden."
                                         }
                                     },
                                     "type": "object"
@@ -745,6 +1024,979 @@
                     }
                 ]
             }
+        },
+        "/v1/roles": {
+            "get": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Listar todas los Roles",
+                "operationId": "86eef45ce1339b1f7e2d84061168893e",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Admin"
+                                                    },
+                                                    "guard_name": {
+                                                        "type": "string",
+                                                        "example": "web"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2023-02-23T00:09:16.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Registrar un Rol",
+                "operationId": "6d0fd19b2fcb9946ccd0b5adc50215a5",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "permissions": {
+                                        "type": "array",
+                                        "items": {}
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required."
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            ""
+                        ]
+                    }
+                ]
+            }
+        },
+        "/v1/roles/{id}": {
+            "get": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Mostrar la información de un Rol",
+                "operationId": "f3697d0047732e3e0b50535664338579",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Admin"
+                                        },
+                                        "guard_name": {
+                                            "type": "string",
+                                            "example": "web"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2023-02-23T00:09:16.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2023-02-23T12:33:45.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Cliente] #id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Actualizar la información de un Rol",
+                "operationId": "fecbb4635edc1df9103eba51ad178407",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "permissions": {
+                                        "type": "array",
+                                        "items": {}
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Admin"
+                                        },
+                                        "guard_name": {
+                                            "type": "string",
+                                            "example": "web"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2023-02-23T00:09:16.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2023-02-23T12:33:45.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required."
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            ""
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Eliminar la información de un Rol",
+                "operationId": "13a434d433ae4f3f071de4c83d7e7a6f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "NO CONTENT"
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se pudo realizar correctamente la operación"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            ""
+                        ]
+                    }
+                ]
+            }
+        },
+        "/v1/tags": {
+            "get": {
+                "tags": [
+                    "Etiquetas"
+                ],
+                "summary": "Listar todas las Etiquetas",
+                "operationId": "b17adeaa3472f6a5f4dc7e4e616edb88",
+                "parameters": [
+                    {
+                        "name": "included",
+                        "in": "query",
+                        "description": "Incluir una o muchas relaciones entre tablas. Ejemplo: posts o posts.users,posts.tags,posts.image",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[name]",
+                        "in": "query",
+                        "description": "Filtra los resultados según el nombre de la columna dentro de los corchetes []. El valor 'name' puede ser sutituido por el nombre de cualquier columna de la tabla Posts. Ejemplo: filter[name]=nombreDeCategoria",
+                        "required": false,
+                        "schema": {
+                            "type": "mixed types"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Ordena los resultados según el valor del parametro. Ejemplo: 'id' para ordernar por el id de forma ascendente o '-id' para ordernar por el id de forma descendente",
+                        "required": false,
+                        "schema": {
+                            "type": "mixed types"
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Paginar los resultados. Ejemplo: '2' para paginar de 2 en 2",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Etiqueta de prueba"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "etiqueta-de-prueba"
+                                                    },
+                                                    "color": {
+                                                        "type": "string",
+                                                        "example": "red"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "access_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Etiquetas"
+                ],
+                "summary": "Registrar una Etiqueta",
+                "operationId": "b6e13c4cc325d20c3368e36b8a65287f",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string"
+                                    },
+                                    "color": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CREATED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Etiqueta de prueba"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "etiqueta-de-prueba"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required."
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "create-tag"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/v1/tags/{id}": {
+            "get": {
+                "tags": [
+                    "Etiquetas"
+                ],
+                "summary": "Mostrar la información de una Etiqueta",
+                "operationId": "a791f5b52f522d784da2b971a928bf94",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "included",
+                        "in": "query",
+                        "description": "Incluir una o muchas relaciones entre tablas. Ejemplo: posts o posts.users,posts.tags,posts.image",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Etiqueta de prueba"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "etiqueta-de-prueba"
+                                                    },
+                                                    "color": {
+                                                        "type": "string",
+                                                        "example": "red"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Cliente] #id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "access_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Etiquetas"
+                ],
+                "summary": "Actualizar una Etiqueta",
+                "operationId": "d3220a589879575f416ecf9f81639628",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string"
+                                    },
+                                    "color": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Etiqueta de prueba"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "etiqueta-de-prueba"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name field is required."
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "update-tag"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Etiquetas"
+                ],
+                "summary": "Eliminar la información de una Etiqueta",
+                "operationId": "6b371d7b70a6e3c245049e97545f58af",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "NO CONTENT"
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se pudo realizar correctamente la operación"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "delete-tag"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/v1/users/{id}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Asignar uno o mas roles a un Usuario",
+                "operationId": "2e8559aa929089f28c27c0124a5dd622",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "roles": {
+                                        "type": "array",
+                                        "items": {}
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "422": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The roles field is required."
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "Objeto de errores"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            ""
+                        ]
+                    }
+                ]
+            }
         }
     },
     "tags": [
@@ -755,6 +2007,18 @@
         {
             "name": "Posts",
             "description": "Posts"
+        },
+        {
+            "name": "Roles",
+            "description": "Roles"
+        },
+        {
+            "name": "Etiquetas",
+            "description": "Etiquetas"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
         }
     ],
     "components": {

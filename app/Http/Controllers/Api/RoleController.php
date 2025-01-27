@@ -22,7 +22,63 @@ class RoleController extends Controller implements HasMiddleware
     }
 
     /**
-     * Display a listing of the resource.
+     * Listar todas los Roles
+     * @OA\Get (
+     *     path="/v1/roles",
+     *     tags={"Roles"},
+     *  security={
+     *  {"passport": {}},
+     *   },
+     *      @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="array",
+     *                 property="data",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Admin"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="guard_name",
+     *                         type="string",
+     *                         example="web"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="created_at",
+     *                         type="string",
+     *                         example="2023-02-23T00:09:16.000000Z"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="updated_at",
+     *                         type="string",
+     *                         example="2023-02-23T12:33:45.000000Z"
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Unauthenticated."
+     *             )
+     *         )
+     *     ),
+     * )
      */
     public function index()
     {
@@ -32,7 +88,91 @@ class RoleController extends Controller implements HasMiddleware
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registrar un Rol
+     * @OA\Post (
+     *     path="/v1/roles",
+     *     tags={"Roles"},
+     * security={
+     *  {"passport": {""}},
+     *   },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                      @OA\Property(
+     *                          property="name",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="permissions",
+     *                          type="array",
+     *                          @OA\Items()
+     *                      ),
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="CREATED",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Admin"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="guard_name",
+     *                         type="string",
+     *                         example="web"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="created_at",
+     *                         type="string",
+     *                         example="2023-02-23T00:09:16.000000Z"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="updated_at",
+     *                         type="string",
+     *                         example="2023-02-23T12:33:45.000000Z"
+     *                     )
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation Errors",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="The name field is required."),
+     *              @OA\Property(property="errors", type="string", example="Objeto de errores"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Unauthenticated."
+     *             )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Forbidden."
+     *             )
+     *         )
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -100,7 +240,52 @@ class RoleController extends Controller implements HasMiddleware
     }
 
     /**
-     * Display the specified resource.
+     * Mostrar la información de un Rol
+     * @OA\Get (
+     *     path="/v1/roles/{id}",
+     *     tags={"Roles"},
+     * security={
+     *  {"passport": {}},
+     *   },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Admin"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="guard_name",
+     *                         type="string",
+     *                         example="web"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="created_at",
+     *                         type="string",
+     *                         example="2023-02-23T00:09:16.000000Z"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="updated_at",
+     *                         type="string",
+     *                         example="2023-02-23T12:33:45.000000Z"
+     *                     )
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="NOT FOUND",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="No query results for model [App\\Models\\Cliente] #id"),
+     *          )
+     *      )
+     * )
      */
     public function show(Role $role)
     {
@@ -108,7 +293,97 @@ class RoleController extends Controller implements HasMiddleware
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar la información de un Rol
+     * @OA\Put (
+     *     path="/v1/roles/{id}",
+     *     tags={"Roles"},
+     * security={
+     *  {"passport": {""}},
+     *   },
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                          property="name",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="permissions",
+     *                          type="array",
+     *                          @OA\Items()
+     *                      ),
+     *            ),
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *          @OA\JsonContent(
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Admin"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="guard_name",
+     *                         type="string",
+     *                         example="web"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="created_at",
+     *                         type="string",
+     *                         example="2023-02-23T00:09:16.000000Z"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="updated_at",
+     *                         type="string",
+     *                         example="2023-02-23T12:33:45.000000Z"
+     *                     )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation Errors",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="The name field is required."),
+     *              @OA\Property(property="errors", type="string", example="Objeto de errores"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Unauthenticated."
+     *             )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Forbidden."
+     *             )
+     *         )
+     *     )
+     * )
      */
     public function update(Request $request, string $role)
     {
@@ -178,7 +453,31 @@ class RoleController extends Controller implements HasMiddleware
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar la información de un Rol
+     * @OA\Delete (
+     *     path="/v1/roles/{id}",
+     *     tags={"Roles"},
+     * security={
+     *  {"passport": {""}},
+     *   },
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="NO CONTENT"
+     *     ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="NOT FOUND",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="No se pudo realizar correctamente la operación"),
+     *          )
+     *      )
+     * )
      */
     public function destroy(string $role)
     {

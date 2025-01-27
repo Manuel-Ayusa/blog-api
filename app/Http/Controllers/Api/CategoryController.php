@@ -25,7 +25,7 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Listar todas las categorias
+     * Listar todas las Categorias
      * @OA\Get (
      *     path="/v1/categories",
      *     tags={"Categorias"},
@@ -120,7 +120,7 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Registrar una categoria
+     * Registrar una Categoria
      * @OA\Post (
      *     path="/v1/categories",
      *     tags={"Categorias"},
@@ -130,8 +130,7 @@ class CategoryController extends Controller implements HasMiddleware
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *                 
+     *             @OA\Schema(          
      *                      @OA\Property(
      *                          property="name",
      *                          type="string"
@@ -201,7 +200,64 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Display the specified resource.
+     * Mostrar la información de una Categoria
+     * @OA\Get (
+     *     path="/v1/categories/{id}",
+     *     tags={"Categorias"},
+     * security={
+     *  {"access_token": {}},
+     *   },
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="number")
+     *     ),
+     *     @OA\Parameter(
+     *          name="included",
+     *          in="query",
+     *          description="Incluir una o muchas relaciones entre tablas. Ejemplo: posts o posts.users,posts.tags,posts.image",
+     *          required=false,
+     *          @OA\Schema(
+     *               type="string"
+     *          )
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *        @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="array",
+     *                 property="data",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Categoria de prueba"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="slug",
+     *                         type="string",
+     *                         example="slug-de-prueba"
+     *                     ),
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="NOT FOUND",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="No query results for model [App\\Models\\Cliente] #id"),
+     *          )
+     *      )
+     * )
      */
     public function show($id)
     {
@@ -211,7 +267,75 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar una Categoria
+     * @OA\Put (
+     *     path="/v1/categories/{id}",
+     *     tags={"Categorias"},
+     * security={
+     *  {"passport": {"update-category"}},
+     *   },
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 
+     *                      @OA\Property(
+     *                          property="name",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="slug",
+     *                          type="string"
+     *                      )
+     *            ),
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="number", example=1),
+     *              @OA\Property(property="name", type="string", example="Categoria de prueba"),
+     *              @OA\Property(property="slug", type="string", example="categoria-de-prueba"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation Errors",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="The name field is required."),
+     *              @OA\Property(property="errors", type="string", example="Objeto de errores"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Unauthenticated."
+     *             )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="Forbidden."
+     *             )
+     *         )
+     *     )
+     * )
      */
     public function update(Request $request, Category $category)
     {
@@ -226,7 +350,31 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar la información de una Categoria
+     * @OA\Delete (
+     *     path="/v1/categories/{id}",
+     *     tags={"Categorias"},
+     * security={
+     *  {"passport": {"delete-category"}},
+     *   },
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="NO CONTENT"
+     *     ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="NOT FOUND",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="No se pudo realizar correctamente la operación"),
+     *          )
+     *      )
+     * )
      */
     public function destroy(Category $category)
     {
