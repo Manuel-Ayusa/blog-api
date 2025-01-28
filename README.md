@@ -1,5 +1,5 @@
 # API Blog
-<b>API Blog</b> es una API RESTful que permite gestionar los recursos de un blog web. La API proporciona endpoints para realizar operaciones <b>CRUD</b> (Crear, Leer, Actualizar y Eliminar) en entidades como Posts, Categorías, Etiquetas y Roles de usuario.
+<b>API Blog</b> es una <b>API RESTful</b> que permite gestionar los recursos de un blog web. La API proporciona endpoints para realizar operaciones <b>CRUD</b> (Crear, Leer, Actualizar y Eliminar) en entidades como <b>Posts</b>, <b>Categorías</b>, <b>Etiquetas</b> y <b>Roles de usuario</b>.
 
 ## Estructura del proyecto 
 <b>Endpoints</b>: Permiten la comunicación entre el cliente y la API. <br>
