@@ -9,7 +9,7 @@ API Blog es una API RESTful que permite gestionar los recursos de un blog web. L
 
 ## Autenticación y seguridad
 La API cuenta con un sistema de autenticación por tokens (JWT). Ademas contiene un sistema de roles y permisos que permite restringir el acceso a distintas acciones de la aplicación según el usuario. <br>
-Para la autenticación se utilizó el paquete Laravel Passport y para el sistema de roles y permisos se implemento Laravel Permissions.
+Para la autenticación se utilizó el paquete <a href="https://laravel.com/docs/11.x/passport">Laravel Passport> y para el sistema de roles y permisos se implemento Laravel Permissions.
 
 ## Documentacion con Swagger
 Se utilizó Swagger para documentar cada endpoint de la API, incluyendo métodos HTTP (GET, POST, PUT, DELETE), parámetros, respuestas y tipos de datos. <br>
@@ -23,4 +23,4 @@ Puedes enviar solicitudes con parámetros, cabeceras, y cuerpo (body), y ver las
 <b>Laravel</b>: Framework para el desarrollo backend de la aplicación. <br>
 <b>MySQL</b>: Para la gestión de la base de datos.<br>
 <b>Postman</b>: Ejecutar pruebas a los endpoints.<br>
-<b>Swagger</b>: Herramienta para documentar los endpoints de la API
+<b>Swagger</b>: Herramienta para documentar los endpoints de la API.
