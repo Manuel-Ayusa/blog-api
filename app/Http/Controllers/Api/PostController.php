@@ -156,10 +156,11 @@ class PostController extends Controller implements HasMiddleware
     }
 
     /**
-     * Registrar un Post
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Post (
      *     path="/v1/posts",
      *     tags={"Posts"},
+     *     summary="Registrar un Post",
      * security={
      *  {"passport": {"create-post"}},
      *   },
@@ -368,10 +369,11 @@ class PostController extends Controller implements HasMiddleware
     }
 
     /**
-     * Actualizar la información de un Post
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Put (
      *     path="/v1/posts/{id}",
      *     tags={"Posts"},
+     *     summary="Actualizar la información de un Post",
      * security={
      *  {"passport": {"update-post"}},
      *   },
@@ -551,10 +553,11 @@ class PostController extends Controller implements HasMiddleware
     }
 
     /**
-     * Eliminar la información de un Post
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Delete (
      *     path="/v1/posts/{id}",
      *     tags={"Posts"},
+     *     summary="Eliminar la información de un Post",
      * security={
      *  {"passport": {"delete-post"}},
      *   },

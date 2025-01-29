@@ -88,10 +88,11 @@ class RoleController extends Controller implements HasMiddleware
     }
 
     /**
-     * Registrar un Rol
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Post (
      *     path="/v1/roles",
      *     tags={"Roles"},
+     *     summary="Registrar un Rol",
      * security={
      *  {"passport": {""}},
      *   },
@@ -293,10 +294,11 @@ class RoleController extends Controller implements HasMiddleware
     }
 
     /**
-     * Actualizar la información de un Rol
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Put (
      *     path="/v1/roles/{id}",
      *     tags={"Roles"},
+     *     summary="Actualizar la información de un Rol",
      * security={
      *  {"passport": {""}},
      *   },
@@ -453,10 +455,11 @@ class RoleController extends Controller implements HasMiddleware
     }
 
     /**
-     * Eliminar la información de un Rol
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Delete (
      *     path="/v1/roles/{id}",
      *     tags={"Roles"},
+     *     summary="Eliminar la información de un Rol",
      * security={
      *  {"passport": {""}},
      *   },

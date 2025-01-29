@@ -19,10 +19,11 @@ class UserController extends Controller implements HasMiddleware
     }
 
     /**
-     * Asignar uno o mas roles a un Usuario
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Put (
      *     path="/v1/users/{id}",
      *     tags={"Users"},
+     *     summary="Asignar uno o mas roles a un Usuario",
      * security={
      *  {"passport": {""}},
      *   },

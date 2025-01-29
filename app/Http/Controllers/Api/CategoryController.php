@@ -120,10 +120,12 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Registrar una Categoria
+     * Solo accesible para usuarios con Roles especificos.
+     * 
      * @OA\Post (
      *     path="/v1/categories",
      *     tags={"Categorias"},
+     *     summary="Registrar una Categoria",
      * security={
      *  {"passport": {"create-category"}},
      *   },
@@ -267,10 +269,11 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Actualizar una Categoria
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Put (
      *     path="/v1/categories/{id}",
      *     tags={"Categorias"},
+     *     summary="Actualizar una Categoria",
      * security={
      *  {"passport": {"update-category"}},
      *   },
@@ -350,10 +353,11 @@ class CategoryController extends Controller implements HasMiddleware
     }
 
     /**
-     * Eliminar la información de una Categoria
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Delete (
      *     path="/v1/categories/{id}",
      *     tags={"Categorias"},
+     *     summary="Eliminar la información de una Categoria",
      * security={
      *  {"passport": {"delete-category"}},
      *   },

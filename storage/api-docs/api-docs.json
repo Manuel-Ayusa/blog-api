@@ -117,6 +117,7 @@
                     "Categorias"
                 ],
                 "summary": "Registrar una Categoria",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "c10ce947a02bab958b808bf10246ae28",
                 "requestBody": {
                     "content": {
@@ -309,6 +310,7 @@
                     "Categorias"
                 ],
                 "summary": "Actualizar una Categoria",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "af63b6cde4b403ad67c81c6bad0fa1ca",
                 "parameters": [
                     {
@@ -428,6 +430,7 @@
                     "Categorias"
                 ],
                 "summary": "Eliminar la información de una Categoria",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "76d9e45902b88a0c1c1afefd8640c10c",
                 "parameters": [
                     {
@@ -595,6 +598,7 @@
                     "Posts"
                 ],
                 "summary": "Registrar un Post",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "51a49d8ad8dfb303eb71c141c8277156",
                 "requestBody": {
                     "content": {
@@ -822,6 +826,7 @@
                     "Posts"
                 ],
                 "summary": "Actualizar la información de un Post",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "df9cdb989ff3ca12d53b28359e4c9e0f",
                 "parameters": [
                     {
@@ -984,6 +989,7 @@
                     "Posts"
                 ],
                 "summary": "Eliminar la información de un Post",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "30b9c7e97803d78ba613844233ebd6d4",
                 "parameters": [
                     {
@@ -1101,6 +1107,7 @@
                     "Roles"
                 ],
                 "summary": "Registrar un Rol",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "6d0fd19b2fcb9946ccd0b5adc50215a5",
                 "requestBody": {
                     "content": {
@@ -1251,6 +1258,7 @@
                     "Roles"
                 ],
                 "summary": "Actualizar la información de un Rol",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "fecbb4635edc1df9103eba51ad178407",
                 "parameters": [
                     {
@@ -1379,6 +1387,7 @@
                     "Roles"
                 ],
                 "summary": "Eliminar la información de un Rol",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "13a434d433ae4f3f071de4c83d7e7a6f",
                 "parameters": [
                     {
@@ -1530,6 +1539,7 @@
                     "Etiquetas"
                 ],
                 "summary": "Registrar una Etiqueta",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "b6e13c4cc325d20c3368e36b8a65287f",
                 "requestBody": {
                     "content": {
@@ -1733,6 +1743,7 @@
                     "Etiquetas"
                 ],
                 "summary": "Actualizar una Etiqueta",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "d3220a589879575f416ecf9f81639628",
                 "parameters": [
                     {
@@ -1859,6 +1870,7 @@
                     "Etiquetas"
                 ],
                 "summary": "Eliminar la información de una Etiqueta",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "6b371d7b70a6e3c245049e97545f58af",
                 "parameters": [
                     {
@@ -1906,6 +1918,7 @@
                     "Users"
                 ],
                 "summary": "Asignar uno o mas roles a un Usuario",
+                "description": "Solo accesible para usuarios con Roles especificos.",
                 "operationId": "2e8559aa929089f28c27c0124a5dd622",
                 "parameters": [
                     {

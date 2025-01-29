@@ -124,10 +124,11 @@ class TagController extends Controller implements HasMiddleware
     }
 
     /**
-     * Registrar una Etiqueta
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Post (
      *     path="/v1/tags",
      *     tags={"Etiquetas"},
+     *     summary="Registrar una Etiqueta",
      * security={
      *  {"passport": {"create-tag"}},
      *   },
@@ -282,10 +283,11 @@ class TagController extends Controller implements HasMiddleware
     }
 
     /**
-     * Actualizar una Etiqueta
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Put (
      *     path="/v1/tags/{id}",
      *     tags={"Etiquetas"},
+     *     summary="Actualizar una Etiqueta",
      * security={
      *  {"passport": {"update-tag"}},
      *   },
@@ -371,10 +373,11 @@ class TagController extends Controller implements HasMiddleware
     }
 
     /**
-     * Eliminar la información de una Etiqueta
+     * Solo accesible para usuarios con Roles especificos.
      * @OA\Delete (
      *     path="/v1/tags/{id}",
      *     tags={"Etiquetas"},
+     *     summary="Eliminar la información de una Etiqueta",
      * security={
      *  {"passport": {"delete-tag"}},
      *   },
