@@ -19,7 +19,7 @@ Swagger mantiene el sistema de autenticación por token(JWT) para controlar el a
 Además nos permite explorar la API de forma interactiva, ya que genera una interfaz gráfica (Swagger UI) que permite probar las rutas de la API directamente desde el navegador.
 Puedes enviar solicitudes con parámetros, cabeceras, y cuerpo (body), y ver las respuestas de la API en tiempo real.
 
-La misma la podes encontrar <a href="http://api.codersfree.test/api/documentation#/" target="_blank">aqui</a>.
+Esta documentación la podes encontrar <a href="http://api.codersfree.test/api/documentation#/" target="_blank">aqui</a>.
 
 ## Tecnologias implementadas
 <b>Laravel</b>: Framework para el desarrollo backend de la aplicación. <br>
