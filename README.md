@@ -28,6 +28,6 @@ La misma la podes encontrar <a href="http://api.codersfree.test/api/documentatio
 <b>Swagger</b>: Herramienta para documentar los endpoints de la API.
 
 ## Autor
-Manuel Alejandro Ayusa - Programador y Desarrollador web
-<a href="mailto:ayusamanuel6@gmail.com">ayusamanuel6@gmail.com</a>
+Manuel Alejandro Ayusa - Programador y Desarrollador web <br>
+<a href="mailto:ayusamanuel6@gmail.com">ayusamanuel6@gmail.com</a> <br>
 <a href="www.linkedin.com/in/manuel-alejandro-ayusa-aa7415282">Linkedin</a>
