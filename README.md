@@ -30,4 +30,4 @@ La misma la podes encontrar <a href="http://api.codersfree.test/api/documentatio
 ## Autor
 Manuel Alejandro Ayusa - Programador y Desarrollador web <br>
 <a href="mailto:ayusamanuel6@gmail.com">ayusamanuel6@gmail.com</a> <br>
-<a href="www.linkedin.com/in/manuel-alejandro-ayusa-aa7415282">Linkedin</a>
+<a href="https://www.linkedin.com/in/manuel-alejandro-ayusa-aa7415282/">Linkedin</a>
