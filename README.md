@@ -9,10 +9,10 @@
 
 ## Autenticación y seguridad
 La <b>API</b> cuenta con un sistema de autenticación por tokens <b>(JWT)</b>. Ademas contiene un sistema de roles y permisos que restringe el acceso a distintas acciones de la aplicación según el usuario. <br>
-Para la autenticación se utilizó el paquete <a href="https://laravel.com/docs/11.x/passport">Laravel Passport</a> y para el sistema de roles y permisos se implemento <a href="https://spatie.be/docs/laravel-permission/v6/introduction">Laravel Permissions</a>.
+Para la autenticación se utilizó el paquete <a href="https://laravel.com/docs/11.x/passport" target="_blank">Laravel Passport</a> y para el sistema de roles y permisos se implemento <a href="https://spatie.be/docs/laravel-permission/v6/introduction" target="_blank">Laravel Permissions</a>.
 
 ## Documentacion con Swagger
-Se utilizó <a href="https://swagger.io/">Swagger</a> para documentar cada endpoint de la API, incluyendo métodos HTTP (GET, POST, PUT, DELETE), parámetros, respuestas y tipos de datos. <br>
+Se utilizó <a href="https://swagger.io/" target="_blank">Swagger</a> para documentar cada endpoint de la API, incluyendo métodos HTTP (GET, POST, PUT, DELETE), parámetros, respuestas y tipos de datos. <br>
 
 Swagger mantiene el sistema de autenticación por token(JWT) para controlar el acceso a los recursos. <br>
 
