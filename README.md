@@ -8,7 +8,7 @@
 <b>Middlewares</b>: Se utilizan para la autenticación y proteger los controladores de accesos no autorizados. <br>
 
 ## Autenticación y seguridad
-La <b>API</b> cuenta con un sistema de autenticación por tokens <b>(JWT)</b>. Ademas contiene un sistema de roles y permisos que permite restringir el acceso a distintas acciones de la aplicación según el usuario. <br>
+La <b>API</b> cuenta con un sistema de autenticación por tokens <b>(JWT)</b>. Ademas contiene un sistema de roles y permisos que restringe el acceso a distintas acciones de la aplicación según el usuario. <br>
 Para la autenticación se utilizó el paquete <a href="https://laravel.com/docs/11.x/passport">Laravel Passport</a> y para el sistema de roles y permisos se implemento <a href="https://spatie.be/docs/laravel-permission/v6/introduction">Laravel Permissions</a>.
 
 ## Documentacion con Swagger
